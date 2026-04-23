@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>RaShane DeLoach II — Digital Media Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #080810;
+      --surface:   #10101e;
+      --border:    #1e1e36;
+      --accent1:   #e8ff00;   /* electric yellow — pulled from abstract art */
+      --accent2:   #00e5ff;   /* cyan */
+      --accent3:   #ff3cac;   /* hot pink highlight */
+      --text:      #e8e8f0;
+      --muted:     #6b6b8a;
+      --card-bg:   #0d0d1f;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── NOISE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.5;
+    }
+
+    /* ── HEADER ── */
+    header {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 clamp(1.5rem, 6vw, 5rem) clamp(3rem, 6vw, 5rem);
+      overflow: hidden;
+    }
+
+    .header-bg {
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 70% 40%, #1a1a40 0%, var(--bg) 70%);
+      z-index: 1;
+    }
+
+    .header-glow {
+      position: absolute;
+      width: 700px; height: 700px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(232,255,0,0.07) 0%, transparent 70%);
+      top: -200px; right: -200px;
+      z-index: 1;
+      animation: pulse 6s ease-in-out infinite alternate;
+    }
+
+    .header-glow2 {
+      position: absolute;
+      width: 500px; height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0,229,255,0.06) 0%, transparent 70%);
+      bottom: 0; left: 10%;
+      z-index: 1;
+      animation: pulse 8s ease-in-out infinite alternate-reverse;
+    }
+
+    @keyframes pulse {
+      from { transform: scale(1); opacity: 0.7; }
+      to   { transform: scale(1.15); opacity: 1; }
+    }
+
+    .header-content {
+      position: relative; z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 3rem;
+      width: 100%;
+    }
+
+    .hero-text { flex: 1; }
+
+    .hero-photo {
+      flex-shrink: 0;
+      width: 300px;
+      aspect-ratio: 1/1;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 1px solid transparent;
+      background:
+        linear-gradient(var(--bg), var(--bg)) padding-box,
+        radial-gradient(ellipse at top, var(--accent1), transparent 70%) border-box;
+      box-shadow: 0 0 60px rgba(232,255,0,0.08), 0 0 120px rgba(232,255,0,0.04), 0 20px 60px rgba(0,0,0,0.5);
+      opacity: 0;
+      animation: fadeUp 0.9s 0.5s forwards;
+    }
+
+    .hero-photo img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      filter: grayscale(20%);
+      transition: filter 0.4s;
+    }
+
+    .hero-photo:hover img { filter: grayscale(0%); }
+
+    @media (max-width: 800px) {
+      .header-content { flex-direction: column-reverse; align-items: flex-start; gap: 2rem; }
+      .hero-photo { width: 120px; aspect-ratio: 1/1; }
+    }
+
+    .eyebrow {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      margin-bottom: 1rem;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.2s forwards;
+    }
+
+    h1.hero-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(4rem, 14vw, 12rem);
+      line-height: 0.9;
+      letter-spacing: 0.02em;
+      color: var(--text);
+      margin-bottom: 0.15em;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.4s forwards;
+    }
+
+    h1.hero-name span {
+      color: var(--accent1);
+      display: inline-block;
+    }
+
+    .hero-subtitle {
+      font-family: 'DM Sans', sans-serif;
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      font-weight: 300;
+      color: var(--muted);
+      max-width: 550px;
+      margin-bottom: 2.5rem;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.6s forwards;
+    }
+
+    .hero-tags {
+      display: flex; flex-wrap: wrap; gap: 0.6rem;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.8s forwards;
+    }
+
+    .tag {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.35rem 0.8rem;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      color: var(--muted);
+      background: rgba(255,255,255,0.02);
+      transition: border-color 0.25s, color 0.25s;
+    }
+    .tag:hover { border-color: var(--accent1); color: var(--accent1); }
+
+    .scroll-hint {
+      position: absolute; bottom: 2rem; right: clamp(1.5rem, 6vw, 5rem);
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      writing-mode: vertical-rl;
+      z-index: 2;
+      opacity: 0;
+      animation: fadeUp 1s 1.2s forwards;
+    }
+
+    .scroll-hint::after {
+      content: '';
+      display: block;
+      width: 1px; height: 50px;
+      background: linear-gradient(to bottom, var(--muted), transparent);
+      margin: 0.5rem auto 0;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem clamp(1.5rem, 6vw, 5rem);
+      background: rgba(8,8,16,0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      z-index: 100;
+    }
+
+    .nav-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.25rem;
+      letter-spacing: 0.08em;
+      color: var(--accent1);
+      text-decoration: none;
+    }
+
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent1); }
+
+    /* ── PROFILE STRIP ── */
+    .profile-strip {
+      position: relative; z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .profile-block {
+      padding: 2rem clamp(1.5rem, 4vw, 3rem);
+      border-right: 1px solid var(--border);
+    }
+    .profile-block:last-child { border-right: none; }
+
+    .profile-block-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      margin-bottom: 0.75rem;
+    }
+
+    .profile-bio {
+      font-size: 0.92rem;
+      color: var(--text);
+      line-height: 1.65;
+    }
+
+    .skills-list {
+      display: flex; flex-wrap: wrap; gap: 0.4rem;
+    }
+
+    .skill-chip {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.55rem;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      color: var(--text);
+      background: rgba(255,255,255,0.03);
+    }
+
+    .contact-list { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+    .contact-list li { display: flex; align-items: center; gap: 0.6rem; }
+    .contact-list a {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      color: var(--text);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .contact-list a:hover { color: var(--accent1); }
+    .contact-icon { font-size: 0.85rem; width: 1.2rem; text-align: center; }
+
+    .resume-btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      margin-top: 1rem;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 0.55rem 1.1rem;
+      background: var(--accent1);
+      color: #080810;
+      border: none;
+      border-radius: 2px;
+      text-decoration: none;
+      font-weight: 700;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .resume-btn:hover { opacity: 0.85; transform: translateY(-1px); }
+
+    @media (max-width: 800px) {
+      .profile-strip { grid-template-columns: 1fr; }
+      .profile-block { border-right: none; border-bottom: 1px solid var(--border); }
+      .profile-block:last-child { border-bottom: none; }
+    }
+
+    /* ── SECTION WRAPPER ── */
+    .section-wrap {
+      position: relative; z-index: 1;
+      padding: clamp(4rem, 8vw, 7rem) clamp(1.5rem, 6vw, 5rem);
+    }
+
+    .section-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      margin-bottom: 0.75rem;
+    }
+
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      letter-spacing: 0.04em;
+      line-height: 1;
+      margin-bottom: 3rem;
+    }
+
+    .section-divider {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(to right, var(--accent1), transparent);
+      margin-bottom: 3rem;
+    }
+
+    /* ── ABOUT ── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .about-text p {
+      font-size: 1.05rem;
+      color: var(--text);
+      margin-bottom: 1.2rem;
+    }
+
+    .about-text p:last-child { color: var(--muted); font-size: 0.95rem; }
+
+    .about-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1.5rem;
+      transition: border-color 0.25s;
+    }
+    .stat-card:hover { border-color: var(--accent1); }
+
+    .stat-card .num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.8rem;
+      color: var(--accent1);
+      line-height: 1;
+    }
+
+    .stat-card .label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 0.3rem;
+    }
+
+    /* ── TOOLS USED ── */
+    .tools-row {
+      display: flex; flex-wrap: wrap; gap: 1rem;
+      margin-bottom: 3rem;
+    }
+
+    .tool-pill {
+      display: flex; align-items: center; gap: 0.5rem;
+      padding: 0.5rem 1.1rem;
+      border-radius: 100px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      font-family: 'Space Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text);
+      transition: all 0.2s;
+    }
+    .tool-pill:hover { border-color: var(--accent2); color: var(--accent2); transform: translateY(-2px); }
+
+    .tool-pill .dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent1);
+      flex-shrink: 0;
+    }
+
+    /* ── PROJECT GRID ── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 380px), 1fr));
+      gap: 1.5rem;
+    }
+
+    .project-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+      display: flex; flex-direction: column;
+      transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+      opacity: 0;
+      animation: fadeUp 0.7s forwards;
+    }
+
+    .project-card:nth-child(1) { animation-delay: 0.1s; }
+    .project-card:nth-child(2) { animation-delay: 0.2s; }
+    .project-card:nth-child(3) { animation-delay: 0.3s; }
+    .project-card:nth-child(4) { animation-delay: 0.4s; }
+    .project-card:nth-child(5) { animation-delay: 0.5s; }
+    .project-card:nth-child(6) { animation-delay: 0.6s; }
+
+    .project-card:hover {
+      border-color: var(--accent1);
+      transform: translateY(-5px);
+      box-shadow: 0 20px 60px rgba(232,255,0,0.06);
+    }
+
+    .card-media {
+      width: 100%;
+      background: #05050e;
+      overflow: hidden;
+      position: relative;
+      aspect-ratio: 16/10;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .card-media img,
+    .card-media video,
+    .card-media audio {
+      max-width: 100%;
+      max-height: 100%;
+    }
+
+    .card-media img { object-fit: cover; width: 100%; height: 100%; }
+
+    .card-media video { width: 100%; }
+
+    .audio-wrapper {
+      width: 100%;
+      padding: 2rem;
+      display: flex; flex-direction: column; align-items: center; gap: 1rem;
+      background: linear-gradient(135deg, #0a0a18, #121230);
+    }
+
+    .audio-icon {
+      width: 64px; height: 64px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent2), var(--accent1));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem;
+    }
+
+    .audio-wrapper audio { width: 100%; }
+
+    .gif-placeholder {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      background: linear-gradient(135deg, #0d0d20, #141428);
+    }
+
+    .gif-placeholder img { width: 100%; height: 100%; object-fit: contain; }
+
+    .card-body {
+      padding: 1.5rem;
+      flex: 1;
+      display: flex; flex-direction: column;
+    }
+
+    .card-number {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 0.9rem;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+      margin-bottom: 0.4rem;
+    }
+
+    .card-title {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 0.75rem;
+      line-height: 1.3;
+    }
+
+    .card-meta {
+      display: flex; flex-wrap: wrap; gap: 0.5rem;
+      margin-top: auto;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .meta-badge {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.6rem;
+      border-radius: 2px;
+    }
+
+    .badge-tool   { background: rgba(0,229,255,0.08); color: var(--accent2); border: 1px solid rgba(0,229,255,0.2); }
+    .badge-type   { background: rgba(232,255,0,0.06); color: var(--accent1); border: 1px solid rgba(232,255,0,0.15); }
+    .badge-date   { background: rgba(255,255,255,0.04); color: var(--muted); border: 1px solid var(--border); }
+    .badge-award  { background: rgba(255,60,172,0.08); color: var(--accent3); border: 1px solid rgba(255,60,172,0.2); }
+    .badge-course { background: rgba(160,100,255,0.10); color: #b47eff; border: 1px solid rgba(160,100,255,0.25); }
+
+    .card-desc {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 0.75rem;
+    }
+
+    /* ── CASE STUDY BREAKDOWN ── */
+    .case-study {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.6rem 1rem;
+      margin: 0.75rem 0;
+    }
+
+    .cs-item { display: flex; flex-direction: column; gap: 0.15rem; }
+
+    .cs-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.55rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent2);
+    }
+
+    .cs-value {
+      font-size: 0.82rem;
+      color: var(--text);
+      line-height: 1.4;
+    }
+
+    .card-link {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      text-decoration: none;
+      margin-top: 0.5rem;
+      transition: gap 0.2s;
+    }
+    .card-link:hover { gap: 0.7rem; }
+
+    /* ── COURSE DIVIDER ── */
+    .course-divider {
+      display: flex; align-items: center; gap: 1.5rem;
+      margin: 3rem 0 2rem;
+    }
+    .course-divider-line {
+      flex: 1; height: 1px;
+      background: linear-gradient(to right, var(--border), transparent);
+    }
+    .course-divider-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #b47eff;
+      white-space: nowrap;
+      padding: 0.3rem 0.8rem;
+      border: 1px solid rgba(160,100,255,0.25);
+      border-radius: 2px;
+      background: rgba(160,100,255,0.06);
+    }
+
+
+    .project-card.featured {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+    .project-card.featured .card-media { aspect-ratio: unset; min-height: 280px; }
+
+    /* ── QUOTE / BOTTLE MESSAGE ── */
+    .bottle-section {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--accent1);
+      border-radius: 4px;
+      padding: 3rem clamp(2rem, 5vw, 4rem);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .bottle-section::before {
+      content: '"';
+      position: absolute;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 20rem;
+      color: rgba(232,255,0,0.03);
+      top: -4rem; left: 1rem;
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .bottle-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--accent1);
+      margin-bottom: 1rem;
+    }
+
+    .bottle-text {
+      font-size: 1.15rem;
+      font-weight: 300;
+      line-height: 1.8;
+      color: var(--text);
+      font-style: italic;
+      max-width: 75ch;
+      position: relative;
+    }
+
+    /* ── CONTACT SECTION ── */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      align-items: start;
+    }
+
+    .contact-cta-text {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      line-height: 1.05;
+      letter-spacing: 0.04em;
+      color: var(--text);
+      margin-bottom: 1rem;
+    }
+
+    .contact-cta-text span { color: var(--accent1); }
+
+    .contact-cta-sub {
+      font-size: 0.9rem;
+      color: var(--muted);
+      max-width: 40ch;
+      line-height: 1.65;
+    }
+
+    .contact-links-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .contact-row {
+      display: flex; align-items: center; gap: 1rem;
+      padding-bottom: 1.25rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .contact-row:last-child { border-bottom: none; padding-bottom: 0; }
+
+    .contact-row-icon {
+      width: 36px; height: 36px;
+      border-radius: 4px;
+      background: rgba(232,255,0,0.07);
+      border: 1px solid rgba(232,255,0,0.15);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    .contact-row-info { display: flex; flex-direction: column; gap: 0.1rem; }
+
+    .contact-row-type {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.55rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .contact-row-value {
+      font-size: 0.88rem;
+      color: var(--text);
+    }
+
+    .contact-row-value a {
+      color: var(--text);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .contact-row-value a:hover { color: var(--accent1); }
+
+    @media (max-width: 800px) {
+      .contact-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      position: relative; z-index: 1;
+      border-top: 1px solid var(--border);
+      padding: 2rem clamp(1.5rem, 6vw, 5rem);
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 1rem;
+    }
+
+    .footer-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1rem;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+    }
+
+    .footer-copy {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+      text-align: right;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 800px) {
+      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .project-card.featured { grid-template-columns: 1fr; }
+      .project-card.featured .card-media { min-height: 220px; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">RDII</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#message">Reflection</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <header>
+    <div class="header-bg"></div>
+    <div class="header-glow"></div>
+    <div class="header-glow2"></div>
+    <div class="header-content">
+      <div class="hero-text">
+        <p class="eyebrow">Digital Media Portfolio · Spring 2025 and Fall 2025</p>
+        <h1 class="hero-name">RaShane<br>DeLoach <span>II</span></h1>
+        <p class="hero-subtitle">
+          A year of creative exploration across digital tools — from frame-by-frame animation to vector art, audio production, video editing, and short film.
+        </p>
+      </div>
+      <div class="hero-photo">
+        <img src="Professional Headshot.png" alt="RaShane DeLoach II" />
+      </div>
+    </div>
+    <span class="scroll-hint">Scroll</span>
+  </header>
+
+  <!-- PROFILE STRIP -->
+  <div class="profile-strip">
+    <div class="profile-block">
+      <p class="profile-block-label">Bio</p>
+      <p class="profile-bio">
+        Systems and Cybersecurity Student at Georgia Gwinnett College with hands-on experience in raster and vector design, audio production, video editing, and short-form filmmaking. Comfortable working across the full creative pipeline — from concept to final export.
+      </p>
+    </div>
+    <div class="profile-block">
+      <p class="profile-block-label">Skills &amp; Tools</p>
+      <div class="skills-list">
+        <span class="skill-chip">GIMP</span>
+        <span class="skill-chip">Inkscape</span>
+        <span class="skill-chip">Audacity</span>
+        <span class="skill-chip">Shotcut</span>
+        <span class="skill-chip">GIF Animation</span>
+        <span class="skill-chip">Vector Illustration</span>
+        <span class="skill-chip">Audio Editing</span>
+        <span class="skill-chip">Video Editing</span>
+        <span class="skill-chip">Short Film Production</span>
+        <span class="skill-chip">HTML / CSS / JavaScript</span>
+      </div>
+    </div>
+  </div>
+  <section class="section-wrap" id="about">
+    <p class="section-label">01 / About</p>
+    <h2 class="section-title">The Work</h2>
+    <div class="section-divider"></div>
+
+    <div class="about-grid">
+      <div class="about-text">
+        <p style="font-size:1rem;color:var(--text);margin-bottom:1rem;">
+          Five projects across two courses — Digital Media and Intro to Film — each applying a different professional tool to a real creative brief.
+        </p>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:0.6rem;">
+          <li style="display:flex;gap:0.75rem;font-size:0.9rem;color:var(--muted);"><span style="color:var(--accent1);flex-shrink:0;">→</span> Frame-by-frame GIF animation in GIMP — <strong style="color:var(--text);font-weight:500;">voted #1 in class poll</strong></li>
+          <li style="display:flex;gap:0.75rem;font-size:0.9rem;color:var(--muted);"><span style="color:var(--accent1);flex-shrink:0;">→</span> Vector illustration and composition in Inkscape</li>
+          <li style="display:flex;gap:0.75rem;font-size:0.9rem;color:var(--muted);"><span style="color:var(--accent1);flex-shrink:0;">→</span> Recorded and edited audio tutorial in Audacity</li>
+          <li style="display:flex;gap:0.75rem;font-size:0.9rem;color:var(--muted);"><span style="color:var(--accent1);flex-shrink:0;">→</span> Campus event documentary edited in Shotcut</li>
+          <li style="display:flex;gap:0.75rem;font-size:0.9rem;color:var(--muted);"><span style="color:var(--accent1);flex-shrink:0;">→</span> Original short film scripted, shot, and directed for Intro to Film</li>
+        </ul>
+      </div>
+      <div class="about-stats">
+        <div class="stat-card">
+          <div class="num">5</div>
+          <div class="label">Projects Completed</div>
+        </div>
+        <div class="stat-card">
+          <div class="num">4</div>
+          <div class="label">Tools Mastered</div>
+        </div>
+        <div class="stat-card">
+          <div class="num">#1</div>
+          <div class="label">Class Poll — GIF Project</div>
+        </div>
+        <div class="stat-card">
+          <div class="num">S25-F25</div>
+          <div class="label">Spring 2025 and Fall 2025 Semester</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:3rem;">
+      <p class="section-label" style="margin-bottom:1rem">Tools Used</p>
+      <div class="tools-row">
+        <div class="tool-pill"><span class="dot"></span>GIMP — Image & Animation Editor</div>
+        <div class="tool-pill"><span class="dot"></span>Inkscape — Vector Graphics</div>
+        <div class="tool-pill"><span class="dot"></span>Audacity — Audio Production</div>
+        <div class="tool-pill"><span class="dot"></span>Shotcut — Video Editing</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section class="section-wrap" id="projects">
+    <p class="section-label">02 / Projects</p>
+    <h2 class="section-title">Selected Work</h2>
+    <div class="section-divider"></div>
+
+    <div class="projects-grid">
+
+      <!-- Project 1: GIF -->
+      <div class="project-card featured">
+        <div class="card-media">
+          <div class="gif-placeholder">
+            <img src="RaShaneDeLoachII_proj1.gif" alt="Optimus Prime Run GIF" />
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-number">Project 01 · Digital Media</div>
+          <h3 class="card-title">Optimus Prime Run</h3>
+          <div class="case-study">
+            <div class="cs-item"><span class="cs-label">Role</span><span class="cs-value">Solo — Animator &amp; Designer</span></div>
+            <div class="cs-item"><span class="cs-label">Tool</span><span class="cs-value">GIMP</span></div>
+            <div class="cs-item"><span class="cs-label">Goal</span><span class="cs-value">Create a looping animated GIF using frame-by-frame technique</span></div>
+            <div class="cs-item"><span class="cs-label">Outcome</span><span class="cs-value">Voted <strong style="color:var(--accent3)">1st place</strong> in the class-wide poll</span></div>
+          </div>
+          <div class="card-meta">
+            <span class="meta-badge badge-tool">GIMP</span>
+            <span class="meta-badge badge-type">Animation · GIF</span>
+            <span class="meta-badge badge-date">Spring 2025</span>
+            <span class="meta-badge badge-award">🏆 1st Place — Class Poll</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 2: Abstract Art -->
+      <div class="project-card">
+        <div class="card-media">
+          <img src="AbstractArt_RaShaneDeLoachII.png" alt="Abstract Art — RaShane DeLoach II" />
+        </div>
+        <div class="card-body">
+          <div class="card-number">Project 02 · Digital Media</div>
+          <h3 class="card-title">Abstract Art</h3>
+          <div class="case-study">
+            <div class="cs-item"><span class="cs-label">Role</span><span class="cs-value">Solo — Illustrator</span></div>
+            <div class="cs-item"><span class="cs-label">Tool</span><span class="cs-value">Inkscape</span></div>
+            <div class="cs-item"><span class="cs-label">Goal</span><span class="cs-value">Explore composition, color contrast, and depth using vector shapes</span></div>
+            <div class="cs-item"><span class="cs-label">Outcome</span><span class="cs-value">Layered vector painting with gradient blur and cyan accent curves</span></div>
+          </div>
+          <div class="card-meta">
+            <span class="meta-badge badge-tool">Inkscape</span>
+            <span class="meta-badge badge-type">Vector Art · SVG</span>
+            <span class="meta-badge badge-date">Spring 2025</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 4: Audio -->
+      <div class="project-card">
+        <div class="card-media">
+          <div class="audio-wrapper">
+            <div class="audio-icon">🎙️</div>
+            <audio controls>
+              <source src="AudProj2_RaShaneDeLoachII.wav" type="audio/wav">
+              Your browser does not support the audio element.
+            </audio>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-number">Project 03 · Digital Media</div>
+          <h3 class="card-title">RPG Tutorial — Audio Project</h3>
+          <div class="case-study">
+            <div class="cs-item"><span class="cs-label">Role</span><span class="cs-value">Solo — Writer, Narrator &amp; Editor</span></div>
+            <div class="cs-item"><span class="cs-label">Tool</span><span class="cs-value">Audacity</span></div>
+            <div class="cs-item"><span class="cs-label">Goal</span><span class="cs-value">Script and record a tutorial walking listeners through RPG gameplay</span></div>
+            <div class="cs-item"><span class="cs-label">Outcome</span><span class="cs-value">Edited audio clip paired with a companion PowerPoint slide deck</span></div>
+          </div>
+          <a class="card-link" href="AudProj2_RaShaneDeLoachII.pptx" download>↓ Download Slide Deck (PPTX)</a>
+          <div class="card-meta">
+            <span class="meta-badge badge-tool">Audacity</span>
+            <span class="meta-badge badge-type">Audio · WAV</span>
+            <span class="meta-badge badge-date">Spring 2025</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 5: Video -->
+      <div class="project-card">
+        <div class="card-media" style="aspect-ratio:16/9;">
+          <video controls style="width:100%;height:100%;object-fit:cover;">
+            <source src="Movie_RaShaneDeLoachII.mp4" type="video/mp4">
+            Your browser does not support the video element.
+          </video>
+        </div>
+        <div class="card-body">
+          <div class="card-number">Project 04 · Digital Media</div>
+          <h3 class="card-title">GGC SD Alumni Event</h3>
+          <div class="case-study">
+            <div class="cs-item"><span class="cs-label">Role</span><span class="cs-value">Solo — Videographer &amp; Editor</span></div>
+            <div class="cs-item"><span class="cs-label">Tool</span><span class="cs-value">Shotcut</span></div>
+            <div class="cs-item"><span class="cs-label">Goal</span><span class="cs-value">Document the Software Development Alumni Event at GGC</span></div>
+            <div class="cs-item"><span class="cs-label">Outcome</span><span class="cs-value">Short documentary applying cut, sequence, and pacing techniques</span></div>
+          </div>
+          <div class="card-meta">
+            <span class="meta-badge badge-tool">Shotcut</span>
+            <span class="meta-badge badge-type">Video · MP4</span>
+            <span class="meta-badge badge-date">Spring 2025</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- INTRO TO FILM DIVIDER -->
+    <div class="course-divider">
+      <div class="course-divider-line"></div>
+      <span class="course-divider-label">Intro to Film</span>
+      <div class="course-divider-line" style="background: linear-gradient(to left, var(--border), transparent);"></div>
+    </div>
+
+    <div class="projects-grid">
+
+      <!-- Project 6: Short Film -->
+      <div class="project-card featured">
+        <div class="card-media" style="aspect-ratio:unset; min-height:280px;">
+          <video controls style="width:100%;height:100%;object-fit:cover;">
+            <source src="LIAD_Short_Film.mp4" type="video/mp4">
+            Your browser does not support the video element.
+          </video>
+        </div>
+        <div class="card-body">
+          <div class="card-number">Project 05 · Intro to Film</div>
+          <h3 class="card-title">LIAD — Short Film</h3>
+          <div class="case-study">
+            <div class="cs-item"><span class="cs-label">Role</span><span class="cs-value">Writer, Director &amp; Editor</span></div>
+            <div class="cs-item"><span class="cs-label">Tool</span><span class="cs-value">Camera · Editing Software</span></div>
+            <div class="cs-item"><span class="cs-label">Goal</span><span class="cs-value">Write and produce an original short film for Intro to Film</span></div>
+            <div class="cs-item"><span class="cs-label">Outcome</span><span class="cs-value">Completed narrative short applying shot composition, pacing, and story structure</span></div>
+          </div>
+          <div class="card-meta">
+            <span class="meta-badge badge-course">Intro to Film</span>
+            <span class="meta-badge badge-type">Short Film · MP4</span>
+            <span class="meta-badge badge-date">Fall 2025</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- BOTTLE MESSAGE -->
+  <section class="section-wrap" id="message">
+    <p class="section-label">03 / Reflection</p>
+    <h2 class="section-title">Bottle Message</h2>
+    <div class="section-divider"></div>
+
+    <div class="bottle-section">
+      <p class="bottle-label">Advice to Future Students</p>
+      <p class="bottle-text">
+        "My advice to anyone taking this class would be to read, write down notes, and apply them to your projects and assignments. Writing down notes help with recollecting information and applying what you learned in class to your work in this course will help with understanding how certain concepts work and why. Prior to taking this class, I would have benefitted from using applications like Gimp, Inkscape, Audacity, and Shotcut sooner. Overall, I enjoyed taking this class while learning about how to create and manipulate digital media."
+      </p>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="section-wrap" id="contact">
+    <p class="section-label">04 / Contact</p>
+    <h2 class="section-title">Get In Touch</h2>
+    <div class="section-divider"></div>
+    <div class="contact-grid">
+      <div>
+        <p class="contact-cta-text">Let's<br>connect<span>.</span></p>
+        <p class="contact-cta-sub">Open to internships, creative collaborations, and freelance opportunities in digital media and film production.</p>
+      </div>
+      <div class="contact-links-card">
+        <div class="contact-row">
+          <div class="contact-row-icon">✉</div>
+          <div class="contact-row-info">
+            <span class="contact-row-type">Email</span>
+            <span class="contact-row-value"><a href="mailto:deloachrdd2@gmail.com">deloachrdd2@gmail.com</a></span>
+          </div>
+        </div>
+        <div class="contact-row">
+          <div class="contact-row-icon">🔗</div>
+          <div class="contact-row-info">
+            <span class="contact-row-type">LinkedIn</span>
+            <span class="contact-row-value"><a href="https://www.linkedin.com/in/rashanedeloach2"
+
+ target="_blank">linkedin.com/in/rashanedeloach2</a></span>
+          </div>
+        </div>
+        <div class="contact-row">
+          <div class="contact-row-icon">💻</div>
+          <div class="contact-row-info">
+            <span class="contact-row-type">GitHub</span>
+            <span class="contact-row-value"><a href="https://github.com/RDpr0gr4mm31ng" target="_blank">https://github.com/RDpr0gr4mm31ng</a></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span class="footer-name">RaShane DeLoach II — Digital Media Portfolio</span>
+    <span class="footer-copy">Georgia Gwinnett College · Spring 2025<br>Built for GitHub Pages</span>
+  </footer>
+
+</body>
+</html>
