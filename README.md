@@ -96,5 +96,3 @@ Digital-Media-Portfolio/
 ---
 
 *Georgia Gwinnett College · Spring 2025 & Fall 2025*
-
-*Georgia Gwinnett College · Spring 2025 & Fall 2025*
