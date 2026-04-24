@@ -6,7 +6,28 @@ A personal portfolio website showcasing original digital media and film projects
 
 ## 🌐 Live Site
 
-> (https://rdpr0gr4mm31ng.github.io/Digital-Media-Portfolio/)
+> [https://rdpr0gr4mm31ng.github.io/Digital-Media-Portfolio/](https://rdpr0gr4mm31ng.github.io/Digital-Media-Portfolio/)
+
+---
+
+## ⚡ Getting Started (For Recruiters)
+
+No installation, build tools, or accounts required. There are two ways to view the portfolio:
+
+### Option 1 — View the live site (recommended)
+Click the live site link above. The portfolio loads instantly in any modern browser.
+
+### Option 2 — Run it locally
+If you'd prefer to browse the site offline:
+
+1. **Download the repository** — click the green **Code** button on this page, then select **Download ZIP**
+2. **Unzip the folder** to any location on your computer
+3. **Open `index.html`** in any modern browser (Chrome, Firefox, Edge, or Safari)
+   - On Windows: right-click `index.html` → *Open with* → your browser
+   - On Mac: double-click `index.html` or right-click → *Open With* → your browser
+4. The full portfolio — including embedded video, audio, and animations — will load immediately with no internet connection needed
+
+> **Note for recruiters:** All media files (GIF, audio, video) are included in the repository and referenced locally, so everything plays without needing to connect to any external service.
 
 ---
 
@@ -24,30 +45,21 @@ A personal portfolio website showcasing original digital media and film projects
 
 ## 🗂 Repository Structure
 
-All files should live flat in the root directory — no subfolders.
+All files live flat in the root directory — no subfolders.
 
 ```
-index.html
-headshot.png
-RaShaneDeLoachII_proj1.gif
-AbstractArt_RaShaneDeLoachII.png
-AbstractArt_RaShaneDeLoachII.svg
-AudProj2_RaShaneDeLoachII.wav
-AudProj2_RaShaneDeLoachII.pptx
-Movie_RaShaneDeLoachII.mp4
-LIAD_Short_Film.mp4
-README.md
+Digital-Media-Portfolio/
+├── index.html
+├── headshot.png
+├── RaShaneDeLoachII_proj1.gif
+├── AbstractArt_RaShaneDeLoachII.png
+├── AbstractArt_RaShaneDeLoachII.svg
+├── AudProj2_RaShaneDeLoachII.wav
+├── AudProj2_RaShaneDeLoachII.pptx
+├── Movie_RaShaneDeLoachII.mp4
+├── LIAD_Short_Film.mp4
+└── README.md
 ```
-
----
-
-## 🚀 Deploying to GitHub Pages
-
-1. Create a new repository on GitHub (e.g. `digital-media-portfolio`)
-2. Upload all files listed above into the repo root
-3. Go to **Settings → Pages**
-4. Under *Source*, select **Deploy from a branch → main → / (root)**
-5. Click **Save** — your site will be live within a few minutes
 
 ---
 
@@ -82,5 +94,7 @@ README.md
 - **GitHub:** [github.com/RDpr0gr4mm31ng](https://github.com/RDpr0gr4mm31ng)
 
 ---
+
+*Georgia Gwinnett College · Spring 2025 & Fall 2025*
 
 *Georgia Gwinnett College · Spring 2025 & Fall 2025*
