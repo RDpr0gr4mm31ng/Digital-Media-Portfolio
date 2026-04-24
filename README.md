@@ -1,6 +1,6 @@
 # RaShane DeLoach II — Digital Media Portfolio
 
-A personal portfolio website showcasing original digital media and film projects created during the 2024–2025 academic year at Georgia Gwinnett College. Built with vanilla HTML and CSS — no frameworks, no dependencies — and designed to deploy instantly on GitHub Pages.
+A personal portfolio website showcasing original digital media and film projects created during the Spring 2025 and Fall 2025 academic semesters at Georgia Gwinnett College. Built with vanilla HTML and CSS — no frameworks, no dependencies — and designed to deploy instantly on GitHub Pages.
 
 ---
 
@@ -78,7 +78,7 @@ README.md
 ## 📬 Contact
 
 - **Email:** deloachrdd2@gmail.com
-- **LinkedIn:** [linkedin.com/in/rashanedeloach](https://linkedin.com/in/rashanedeloach)
+- **LinkedIn:** [linkedin.com/in/rashanedeloach2](https://linkedin.com/in/rashanedeloach2)
 - **GitHub:** [github.com/RDpr0gr4mm31ng](https://github.com/RDpr0gr4mm31ng)
 
 ---
