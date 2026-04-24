@@ -6,7 +6,7 @@ A personal portfolio website showcasing original digital media and film projects
 
 ## 🌐 Live Site
 
-> `https://<your-username>.github.io/Digital Media Portfolio/`
+> `https://RDpr0gr4mm31ng.github.io/Digital Media Portfolio/`
 
 ---
 
